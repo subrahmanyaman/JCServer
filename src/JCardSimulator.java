@@ -6,7 +6,7 @@ import javax.smartcardio.ResponseAPDU;
 
 import com.android.javacard.keymaster.KMArray;
 import com.android.javacard.keymaster.KMByteBlob;
-import com.android.javacard.keymaster.KMCryptoProvider;
+import com.android.javacard.keymaster.KMSEProvider;
 import com.android.javacard.keymaster.KMDecoder;
 import com.android.javacard.keymaster.KMEncoder;
 import com.android.javacard.keymaster.KMEnum;
@@ -14,6 +14,7 @@ import com.android.javacard.keymaster.KMEnumTag;
 import com.android.javacard.keymaster.KMInteger;
 import com.android.javacard.keymaster.KMKeyParameters;
 import com.android.javacard.keymaster.KMKeymasterApplet;
+import com.android.javacard.keymaster.KMSEProvider;
 import com.android.javacard.keymaster.KMType;
 import com.licel.jcardsim.bouncycastle.util.Arrays;
 import com.licel.jcardsim.smartcardio.CardSimulator;
@@ -24,11 +25,11 @@ import javacard.framework.Util;
 
 public class JCardSimulator implements Simulator {
 
-	  private KMCryptoProvider sim;
+	  private KMSEProvider sim;
 	  private CardSimulator simulator;
 	  private KMEncoder encoder;
 	  private KMDecoder decoder;
-	  private KMCryptoProvider cryptoProvider;
+	  private KMSEProvider cryptoProvider;
 	  ResponseAPDU response;
 
 	  public JCardSimulator(){
@@ -131,7 +132,8 @@ public class JCardSimulator implements Simulator {
 	    // Select applet
 	    simulator.selectApplet(appletAID1);
 	    // provision attest key
-	    return provisionCmd(simulator);// && setBootParams(simulator);
+	    //return provisionCmd(simulator);// && setBootParams(simulator);
+	    return true;
 	}
 	
 	private final byte[] intToByteArray(int value) {
