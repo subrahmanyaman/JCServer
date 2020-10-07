@@ -1,18 +1,12 @@
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
+import opencard.core.terminal.CommandAPDU;
 
-import javax.smartcardio.CommandAPDU;
-import javax.smartcardio.ResponseAPDU;
-
-import com.sun.javacard.apduio.CadTransportException;
 
 public class JCOPSimulator implements Simulator {
 
 	private JCOPOpenCard openCardSim = null;
-	private static final byte[] keymasterAppletId = "KeymasterAppletI".getBytes();
-	private static final byte[] keymasterAppletPackage = "KeymasterApplet".getBytes();
-	private static final String CAPFILE = "C:\\Users\\venkat\\jcop-workspace\\JavaCardKeymaster\\bin\\com\\android\\javacard\\keymaster\\javacard\\keymaster.cap";
+	private static final byte[] keymasterAppletId = Utils.hexStringToByteArray("A00000006203020C0102");
+	private static final byte[] keymasterAppletPackage = Utils.hexStringToByteArray("A00000006203020C0101");
+	private static final String CAPFILE = "C:\\Users\\venkatb\\workspace\\KeymasterApplet\\bin\\com\\android\\javacard\\keymaster\\javacard\\keymaster.cap";
 	//private static final byte[] keymasterAppletId = {(byte)0x4a, (byte)0x43, (byte)0x4f, (byte)0x50, (byte)0x54, (byte)0x65, (byte)0x73, (byte)0x74, (byte)0x41, (byte)0x70, (byte)0x70, (byte)0x6c, (byte)0x65, (byte)0x74, (byte)0x49};
 	//private static final byte[] keymasterAppletPackage = {(byte)0x4a, (byte)0x43, (byte)0x4f, (byte)0x50, (byte)0x54, (byte)0x65, (byte)0x73, (byte)0x74, (byte)0x41, (byte)0x70, (byte)0x70, (byte)0x6c, (byte)0x65, (byte)0x74};
 	//private static final String CAPFILE = "C:\\Users\\venkat\\jcop-workspace\\JCOPTestApplet\\bin\\com\\example\\jcop\\test\\javacard\\test.cap";
@@ -26,7 +20,7 @@ public class JCOPSimulator implements Simulator {
 			try {
 				openCardSim.connect();
 				//openCardSim.deleteApplet(keymasterAppletPackage);
-				//openCardSim.installApplet(CAPFILE, keymasterAppletId, keymasterAppletPackage);
+				openCardSim.installApplet(CAPFILE, keymasterAppletId, keymasterAppletPackage);
 			} catch(JCOPException e) {
 				openCardSim.close();
 				throw new JCOPException(e.getMessage());

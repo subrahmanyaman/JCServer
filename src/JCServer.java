@@ -20,7 +20,8 @@ public class JCServer {
         }
  
         int port = Integer.parseInt(args[0]);
-        Simulator simulator = new JCardSimulator();
+        //Simulator simulator = new JCardSimulator();
+        Simulator simulator = new JCOPSimulator();
         //Simulator simulator = new OracleSimulator();
  
         try (ServerSocket serverSocket = new ServerSocket(port)) {

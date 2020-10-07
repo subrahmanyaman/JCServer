@@ -39,6 +39,7 @@ import opencard.core.terminal.ResponseAPDU;
 import opencard.core.terminal.SlotChannel;
 import opencard.opt.applet.AppletID;
 
+import com.android.javacard.test.Utils;
 import com.sun.javacard.apduio.CadTransportException;
 
 import de.cardcontact.opencard.factory.GlobalPlatformCardServiceFactory;
@@ -296,7 +297,7 @@ public class JCOPOpenCard {
     try {
   //Load and install applet
     //1. Load for install
-    ResponseAPDU resp = sds.installForLoad(appletAid,
+    ResponseAPDU resp = sds.installForLoad(packageAid,
         secDomainAid,
         null,
         null,
@@ -308,7 +309,6 @@ public class JCOPOpenCard {
     System.out.println("Load for install is successfully done.");
     //2. Load the package.
     CapFile cap = new CapFile();
-    //cap.read("C:\\Users\\venkatb\\workspace\\KeymasterApplet\\bin\\com\\android\\javacard\\keymaster\\javacard\\keymaster.cap");
     cap.read(capfile);
     resp = sds.load(cap);
     if(resp.sw() != 0x9000) {
