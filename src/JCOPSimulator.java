@@ -5,7 +5,8 @@ public class JCOPSimulator implements Simulator {
   private JCOPOpenCard openCardSim = null;
   private static final byte[] keymasterAppletId = Utils.hexStringToByteArray("A00000006203020C0102");
   private static final byte[] keymasterAppletPackage = Utils.hexStringToByteArray("A00000006203020C0101");
-  private static final String CAPFILE = "C:\\Users\\venkat\\jcop-workspace\\JavaCardKeymaster\\bin\\com\\android\\javacard\\keymaster\\javacard\\keymaster.cap";
+  //private static final String CAPFILE = "C:\\Users\\venkat\\jcop-workspace\\JavaCardKeymaster\\bin\\com\\android\\javacard\\keymaster\\javacard\\keymaster.cap";
+  private static final String CAPFILE = "C:\\Users\\venkatb\\workspace\\KeymasterApplet\\bin\\com\\android\\javacard\\keymaster\\javacard\\keymaster.cap";
   // private static final byte[] keymasterAppletId = {(byte)0x4a, (byte)0x43,
   // (byte)0x4f, (byte)0x50, (byte)0x54, (byte)0x65, (byte)0x73, (byte)0x74,
   // (byte)0x41, (byte)0x70, (byte)0x70, (byte)0x6c, (byte)0x65, (byte)0x74,
@@ -68,7 +69,7 @@ public class JCOPSimulator implements Simulator {
   }
 
   private byte[] processApdu(byte[] apdu) {
-    if (apdu.length > 256) {
+    if (apdu[4] == 0x00 && apdu.length > 256) {
       byte[] returnApdu = new byte[apdu.length - 3];
       for (int i = 0; i < returnApdu.length; i++)
         returnApdu[i] = apdu[i];
