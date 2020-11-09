@@ -153,7 +153,7 @@ public class JCardSimulator implements Simulator {
 	}
 	
 	private byte[] processApdu(byte[] apdu) {
-		if(apdu.length > 256) {
+		if(apdu[4] == 0x00 && apdu.length > 256) {
 			byte[] returnApdu = new byte[apdu.length-3];
 			for(int i = 0; i < returnApdu.length; i++)
 				returnApdu[i] = apdu[i];
