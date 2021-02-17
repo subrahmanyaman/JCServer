@@ -57,12 +57,11 @@ public class JCOPSimulator implements Simulator {
 
   @Override
   public byte[] executeApdu(byte[] apdu) throws Exception {
-    byte[] processedApdu = processApdu(apdu);
-    System.out.println("Executing APDU = " + Utils.byteArrayToHexString(processedApdu));
-    if (null == validateApdu(processedApdu)) {
+    System.out.println("Executing APDU = " + Utils.byteArrayToHexString(apdu));
+    if (null == validateApdu(apdu)) {
       throw new IllegalArgumentException();
     }
-    opencard.core.terminal.CommandAPDU cmdApdu = new opencard.core.terminal.CommandAPDU(processedApdu);
+    opencard.core.terminal.CommandAPDU cmdApdu = new opencard.core.terminal.CommandAPDU(apdu);
     response = openCardSim.transmitCommand(cmdApdu);
     System.out.println("Status = " + Utils.byteArrayToHexString(intToByteArray(response.sw())));
     return intToByteArray(response.sw());

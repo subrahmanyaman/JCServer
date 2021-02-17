@@ -143,9 +143,8 @@ public class JCardSimulator implements Simulator {
 
   @Override
   public byte[] executeApdu(byte[] apdu) throws Exception {
-    byte[] processedApdu = processApdu(apdu);
-    System.out.println("Executing APDU = " + Utils.byteArrayToHexString(processedApdu));
-    CommandAPDU apduCmd = new CommandAPDU(processedApdu);
+    System.out.println("Executing APDU = " + Utils.byteArrayToHexString(apdu));
+    CommandAPDU apduCmd = new CommandAPDU(apdu);
     response = simulator.transmitCommand(apduCmd);
     System.out.println("Status = " + Utils.byteArrayToHexString(intToByteArray(response.getSW())));
     return intToByteArray(response.getSW());
