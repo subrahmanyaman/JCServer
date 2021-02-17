@@ -8,6 +8,8 @@ import javax.smartcardio.ResponseAPDU;
 
 import com.android.javacard.keymaster.KMArray;
 import com.android.javacard.keymaster.KMByteBlob;
+import com.android.javacard.keymaster.KMJCardSimApplet;
+//import com.android.javacard.keymaster.KMJCardSimApplet;
 import com.android.javacard.keymaster.KMSEProvider;
 import com.android.javacard.keymaster.KMDecoder;
 import com.android.javacard.keymaster.KMEncoder;
@@ -140,6 +142,7 @@ public class JCardSimulator implements Simulator {
   @Override
   public boolean setupKeymasterOnSimulator() throws Exception {
     AID appletAID1 = AIDUtil.create("A000000062");
+    simulator.installApplet(appletAID1, KMJCardSimApplet.class);
     // Select applet
     simulator.selectApplet(appletAID1);
     // provision attest key
@@ -154,48 +157,12 @@ public class JCardSimulator implements Simulator {
 
   @Override
   public byte[] executeApdu(byte[] apdu) throws Exception {
-    byte[] processedApdu = processApdu(apdu);
-    System.out.println(
-            "Executing APDU = " + Utils.byteArrayToHexString(processedApdu));
-    CommandAPDU apduCmd = new CommandAPDU(processedApdu);
+    System.out.println("Executing APDU = " + Utils.byteArrayToHexString(apdu));
+    CommandAPDU apduCmd = new CommandAPDU(apdu);
     response = simulator.transmitCommand(apduCmd);
     System.out.println("Status = "
             + Utils.byteArrayToHexString(intToByteArray(response.getSW())));
     return intToByteArray(response.getSW());
-  }
-
-  private byte[] processApdu(byte[] apdu) {
-    if (apdu[4] == 0x00 && apdu.length > 256) {
-      byte[] returnApdu = new byte[apdu.length - 3];
-      for (int i = 0; i < returnApdu.length; i++)
-        returnApdu[i] = apdu[i];
-      return returnApdu;// Expecting incoming apdu is already extended apdu
-    }
-    if (apdu.length == 6 && apdu[4] == (byte) 0 && apdu[5] == (byte) 0) {
-      byte[] returnApdu = new byte[5];
-      for (int i = 0; i < 5; i++)
-        returnApdu[i] = apdu[i];
-      return returnApdu;
-    } else {
-      // return apdu;
-    }
-    if (apdu[4] == (byte) 0)
-      return apdu;
-    byte[] finalApdu = new byte[apdu.length + 1];
-    System.out.println("Incoming APDU = " + Utils.byteArrayToHexString(apdu));
-    for (int i = 0; i < apdu.length; i++) {
-      if (i < 4) {
-        finalApdu[i] = apdu[i];
-      } else if (i == apdu.length - 1 && apdu[i] == 0) {
-      } else if (i > 4) {
-        finalApdu[i + 2] = apdu[i];
-      } else if (i == 4) {
-        finalApdu[4] = (byte) 0;
-        finalApdu[5] = (byte) 0x00;
-        finalApdu[6] = apdu[i];
-      }
-    }
-    return finalApdu;
   }
 
   @Override
