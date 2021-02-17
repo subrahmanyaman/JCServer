@@ -56,20 +56,7 @@ public class JCServer {
                         + ") socket: " + readLen + " Estimate read: "
                         + isReader.available());
                 byte[] outBytes;
-                /*if (readLen == 1) {
-                  byte[] simulatorOut = {0x00};
-                  if(inBytes[0] == 0x00) {
-                    //Uninstall
-                    ((JCOPSimulator) simulator).uninstallApplet();
-                  } else {
-                    //Install
-                    ((JCOPSimulator) simulator).installApplet();
-                  }
-                  output.write(simulatorOut);
-                  output.flush();
-                  index = 0;
-                  continue;
-                }*/
+
                 try {
                   outBytes = simulator.executeApdu(
                           Arrays.copyOfRange(inBytes, 0, index + readLen));
