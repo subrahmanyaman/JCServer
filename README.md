@@ -6,12 +6,12 @@ and listens for the incomming data on this port. This tool uses apduio and JCard
 to validate and transmit the APDUs to the Keymaster Applet. It also uses OpenCard Framework
 to test with JCOP simulator.
 
-###Build
+### Build
 Import JCServer server application either in Eclipse or IntelliJ. Add the provided jars inside
 lib directory to the project and also add KeymasterApplet as
 dependent project.
 
-###Program Arguments
+### Program Arguments
 JCardSim: Add port number and provider name as arguments
 Example:
 <pre>
