@@ -12,6 +12,7 @@ import com.android.javacard.keymaster.KMEncoder;
 import com.android.javacard.keymaster.KMEnum;
 import com.android.javacard.keymaster.KMEnumTag;
 import com.android.javacard.keymaster.KMInteger;
+import com.android.javacard.keymaster.KMJCardSimApplet;
 import com.android.javacard.keymaster.KMKeyParameters;
 import com.android.javacard.keymaster.KMKeymasterApplet;
 import com.android.javacard.keymaster.KMSEProvider;
@@ -45,7 +46,7 @@ public class JCardSimulator implements Simulator {
     // Create simulator
     // KMJcardSimulator.jcardSim = true;
     AID appletAID1 = AIDUtil.create("A000000062");
-    simulator.installApplet(appletAID1, KMKeymasterApplet.class);
+    simulator.installApplet(appletAID1, KMJCardSimApplet.class);
   }
 
   private boolean provisionCmd(CardSimulator simulator) {

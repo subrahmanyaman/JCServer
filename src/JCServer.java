@@ -12,17 +12,30 @@ import com.sun.javacard.apduio.CadTransportException;
  * @author www.codejava.net
  */
 public class JCServer {
+  private static final String JCOP_PROVIDER = "jcop";
+  private static final String JCARDSIM_PROVIDER = "jcardsim";
 
   public static void main(String[] args) {
-    if (args.length < 1) {
-      System.out.println("Port no is expected as argument.");
+    if (args.length < 2) {
+      System.out.println("Port no and provider name is expected as argument.");
       return;
     }
 
     int port = Integer.parseInt(args[0]);
-    // Simulator simulator = new JCardSimulator();
-    Simulator simulator = new JCOPSimulator();
-    // Simulator simulator = new OracleSimulator();
+    String providerName = args[1];
+    Simulator simulator;
+    if (JCOP_PROVIDER.equals(providerName)) {
+      if (args.length < 5) {
+        System.out.println("AppletAID, PackageAID and cap file path are expected as arguments for JCOP");
+        return;
+      }
+      simulator = new JCOPSimulator(args[2], args[3], args[4]);
+    } else if (JCARDSIM_PROVIDER.equals(providerName)) {
+      simulator = new JCardSimulator();
+    } else {
+      System.out.println("Unsupported provider.");
+      return;
+    }
 
     try (ServerSocket serverSocket = new ServerSocket(port)) {
       simulator.initaliseSimulator();
