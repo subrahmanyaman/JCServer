@@ -248,7 +248,7 @@ public class JCOPOpenCard {
 
   }
 
-  public static void doAuthentication(SmartCard sc) {
+  public void doAuthentication(SmartCard sc) {
     SecurityDomainCardService sds;
     try {
       sds = (SecurityDomainCardService) sc.getCardService(SecurityDomainCardService.class, false);
@@ -272,6 +272,7 @@ public class JCOPOpenCard {
         }
       } else
         throw new JCOPException("authData is null, Failed to do ExtAuth.");
+      this.sds = sds;
     } catch (CardServiceException e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
@@ -309,13 +310,15 @@ public class JCOPOpenCard {
       }
       System.out.println("CAP file loaded successfully.");
 
-      // Install applet.
-      byte[] privileges = new byte[] { 0x00 };
-      byte[] installParam = new byte[] { (byte) 0xC9, 0x00 };
-      resp = sds.installForInstall(packageAid, appletAid, appletAid, privileges, installParam, null, true);
-      if (resp.sw() != 0x9000) {
-        System.out.println("Failed to install Applet. error:" + resp.sw());
-        return;
+      if(appletAid != null) {
+          // Install applet.
+          byte[] privileges = new byte[] { 0x00 };
+          byte[] installParam = new byte[] { (byte) 0xC9, 0x00 };
+          resp = sds.installForInstall(packageAid, appletAid, appletAid, privileges, installParam, null, true);
+          if (resp.sw() != 0x9000) {
+            System.out.println("Failed to install Applet. error:" + resp.sw());
+            return;
+          }
       }
       System.out.println("Applet installed successfully.");
     } catch (CardTerminalException e) {

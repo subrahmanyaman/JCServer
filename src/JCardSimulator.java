@@ -6,13 +6,13 @@ import javax.smartcardio.ResponseAPDU;
 
 import com.android.javacard.keymaster.KMArray;
 import com.android.javacard.keymaster.KMByteBlob;
-import com.android.javacard.keymaster.KMSEProvider;
+import com.android.javacard.seprovider.KMSEProvider;
 import com.android.javacard.keymaster.KMDecoder;
 import com.android.javacard.keymaster.KMEncoder;
 import com.android.javacard.keymaster.KMEnum;
 import com.android.javacard.keymaster.KMEnumTag;
 import com.android.javacard.keymaster.KMInteger;
-import com.android.javacard.keymaster.KMJCardSimApplet;
+//import com.android.javacard.keymaster.KMJCardSimApplet;
 import com.android.javacard.keymaster.KMKeyParameters;
 import com.android.javacard.keymaster.KMKeymasterApplet;
 import com.android.javacard.keymaster.KMType;
@@ -46,7 +46,7 @@ public class JCardSimulator implements Simulator {
     // Create simulator
     // KMJcardSimulator.jcardSim = true;
     AID appletAID1 = AIDUtil.create("A000000062");
-    simulator.installApplet(appletAID1, KMJCardSimApplet.class);
+    //simulator.installApplet(appletAID1, KMJCardSimApplet.class);
   }
 
   private boolean provisionCmd(CardSimulator simulator) {
@@ -82,7 +82,7 @@ public class JCardSimulator implements Simulator {
     buf[2] = (byte) 0x40;
     buf[3] = (byte) 0x00;
     buf[4] = 0;
-    short len = encoder.encode(cmd, buf, (short) 7);
+    short len = encoder.encode(cmd, buf, (short) 7, (short) 1024);
     Util.setShort(buf, (short) 5, len);
     byte[] apdu = new byte[7 + len];
     Util.arrayCopyNonAtomic(buf, (short) 0, apdu, (short) 0, (short) (7 + len));

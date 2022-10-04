@@ -23,6 +23,10 @@ public class JCOPSimulator implements Simulator {
       try {
         openCardSim.connect();
         // openCardSim.deleteApplet(keymasterAppletPackage);
+        //openCardSim.installApplet("/usr/local/google/home/sathep/eclipse-workspace/OmapiTest/bin/com/android/cts/omapi/test/javacard/test.cap",
+        //        Utils.hexStringToByteArray("a000000476416e64726f696443545331"), Utils.hexStringToByteArray("a000000476416e64726f6964435453"));
+        openCardSim.installApplet("/usr/local/google/home/sathep/eclipse-workspace/KeyMintApplet/bin/com/android/javacard/seprovider/javacard/seprovider.cap",
+                null, Utils.hexStringToByteArray("A00000006203020C0102"));
         openCardSim.installApplet(capFilePath, keymasterAppletId, keymasterAppletPackage);
       } catch (JCOPException e) {
         openCardSim.close();
@@ -39,7 +43,7 @@ public class JCOPSimulator implements Simulator {
 
   @Override
   public boolean setupKeymasterOnSimulator() throws Exception {
-    openCardSim.selectApplet(keymasterAppletId);
+    // openCardSim.selectApplet(keymasterAppletId);
     return true;
   }
 
