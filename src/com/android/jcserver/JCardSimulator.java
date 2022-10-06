@@ -1,6 +1,4 @@
 package com.android.jcserver;
-import java.nio.ByteBuffer;
-import java.util.ArrayList;
 
 import javax.smartcardio.CommandAPDU;
 import javax.smartcardio.ResponseAPDU;
@@ -18,15 +16,12 @@ public class JCardSimulator implements Simulator {
     ResponseAPDU response;
 
     public JCardSimulator() {
-        simulator = new CardSimulator();
     }
 
     @Override
     public void initaliseSimulator() throws Exception {
         // Create simulator
-        AID appletAID1 = AIDUtil.create("A000000062");
-        // NOTE: for jcop simulator commented out below line
-        simulator.installApplet(appletAID1, KMJCardSimApplet.class);
+        simulator = new CardSimulator();
     }
 
     @Override
@@ -35,9 +30,22 @@ public class JCardSimulator implements Simulator {
         simulator.deleteApplet(appletAID1);
     }
 
+    private void installKeymaster() throws JCOPException {
+        AID appletAID1 = AIDUtil.create("A000000062");
+        // NOTE: for jcop simulator commented out below line
+        simulator.installApplet(appletAID1, KMJCardSimApplet.class);
+    }
+
+    private void installFira() throws JCOPException {
+    }
+
     @Override
     public void setupSimulator(String target) throws Exception {
-        AID appletAID1 = AIDUtil.create("A000000062");
+        if (target.equals("keymaster")) {
+            installKeymaster();
+        } else if (target.equals("fira")) {
+            installFira();
+        }
         // Select applet
         // simulator.selectApplet(appletAID1);
     }
