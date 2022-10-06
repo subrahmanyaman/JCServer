@@ -15,7 +15,7 @@ public class JCOPSimulator implements Simulator {
         openCardSim = JCOPOpenCard.getInstance();
         if (!openCardSim.isConnected()) {
             try {
-                openCardSim.connect();
+                openCardSim.connect(JCOP_PORT);
             } catch (JCOPException e) {
                 openCardSim.close();
                 throw new JCOPException(e.getMessage());
@@ -25,7 +25,6 @@ public class JCOPSimulator implements Simulator {
 
     @Override
     public void disconnectSimulator() throws Exception {
-        openCardSim.deleteApplet(KEYMASTER_PKG_AID);
         openCardSim.close();
     }
 
@@ -36,7 +35,15 @@ public class JCOPSimulator implements Simulator {
                 KEYMASTER_PKG_AID);
     }
 
-    private void installFira() {   }
+    private void installFira() throws JCOPException {
+        openCardSim.installApplet(getAbsolutePath(CAP_BER), null, BER_PKG_AID);
+        openCardSim.installApplet(getAbsolutePath(CAP_SUS), null, SUS_EXT_PKG_AID);
+        openCardSim.installApplet(getAbsolutePath(CAP_FIRA_SERVICE_APPLET), SERVICE_APPLET_AID,
+                SERVICE_APPLET_PKG_AID);
+        openCardSim.installApplet(getAbsolutePath(CAP_FIRA_SECURECHANNEL), null, SC_PKG_AID);
+        openCardSim.installApplet(getAbsolutePath(CAP_FIRA_APPLET), FIRA_APPLET_AID, FIRA_APPLET_PKG_AID);
+        openCardSim.installApplet(getAbsolutePath(CAP_SUS_APPLET), SUS_APPLET_AID, SUS_APPLET_PKG_AID);
+    }
 
     @Override
     public void setupSimulator(String target) throws Exception {
@@ -44,9 +51,6 @@ public class JCOPSimulator implements Simulator {
             if (target.equals("keymaster")) {
                 installKeymaster();
             } else if (target.equals("fira")) {
-                installFira();
-            } else {
-                installKeymaster();
                 installFira();
             }
         } catch (JCOPException e) {

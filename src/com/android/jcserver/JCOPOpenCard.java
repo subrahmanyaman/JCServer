@@ -364,14 +364,12 @@ public class JCOPOpenCard {
         return isConnected;
     }
 
-    public boolean connect() throws JCOPException {
+    public boolean connect(int port) throws JCOPException {
 
-        ResponseAPDU resp = null;
-        AppletID appId = null;
         Security.addProvider(new BouncyCastleProvider());
         try {
             terminal = new JCOPSimCardTerminal("jcopsimulator", "simulator", "localhost",
-                    "localhost", 8050, 0);
+                    "localhost", port, 0);
 
             terminal.connect();
 

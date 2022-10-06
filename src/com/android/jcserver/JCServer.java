@@ -28,9 +28,8 @@ public class JCServer {
             targetName = args[1];
         }
 
-        if (!(targetName.equals("fira") || targetName.equals("keymaster")
-                || targetName.equals("all"))) {
-            System.out.println("Target name must be either 'fira', 'keymaster' or 'all'");
+        if (!(targetName.equals("fira") || targetName.equals("keymaster"))) {
+            System.out.println("Target name must be either 'fira' or 'keymaster'");
             return;
         }
 
