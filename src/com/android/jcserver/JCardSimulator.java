@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import javax.smartcardio.CommandAPDU;
 import javax.smartcardio.ResponseAPDU;
 
+// NOTE: for jcop simulator, commented out below line
 import com.android.javacard.keymaster.KMJCardSimApplet;
 import com.licel.jcardsim.smartcardio.CardSimulator;
 import com.licel.jcardsim.utils.AIDUtil;
@@ -24,6 +25,7 @@ public class JCardSimulator implements Simulator {
     public void initaliseSimulator() throws Exception {
         // Create simulator
         AID appletAID1 = AIDUtil.create("A000000062");
+        // NOTE: for jcop simulator commented out below line
         simulator.installApplet(appletAID1, KMJCardSimApplet.class);
     }
 
