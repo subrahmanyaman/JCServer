@@ -5,9 +5,10 @@ import javax.smartcardio.ResponseAPDU;
 
 // NOTE: for jcop simulator, commented out below line
 import com.android.javacard.keymaster.KMJCardSimApplet;
+
 import com.licel.jcardsim.smartcardio.CardSimulator;
 import com.licel.jcardsim.utils.AIDUtil;
-
+import static com.android.jcserver.config.*;
 import javacard.framework.AID;
 
 public class JCardSimulator implements Simulator {
@@ -26,12 +27,12 @@ public class JCardSimulator implements Simulator {
 
     @Override
     public void disconnectSimulator() throws Exception {
-        AID appletAID1 = AIDUtil.create("A000000062");
+        AID appletAID1 = AIDUtil.create(keymasterAid);
         simulator.deleteApplet(appletAID1);
     }
 
     private void installKeymaster() throws JCOPException {
-        AID appletAID1 = AIDUtil.create("A000000062");
+        AID appletAID1 = AIDUtil.create(keymasterAid);
         // NOTE: for jcop simulator commented out below line
         simulator.installApplet(appletAID1, KMJCardSimApplet.class);
     }
@@ -46,8 +47,6 @@ public class JCardSimulator implements Simulator {
         } else if (target.equals("fira")) {
             installFira();
         }
-        // Select applet
-        // simulator.selectApplet(appletAID1);
     }
 
     private final byte[] intToByteArray(int value) {
@@ -66,7 +65,12 @@ public class JCardSimulator implements Simulator {
 
     @Override
     public byte[] decodeDataOut() {
-        return response.getData();
+        byte[] resp  = response.getData();
+        byte[] status = intToByteArray(response.getSW());
+        byte[] out = new byte[(resp.length + status.length)];
+        System.arraycopy(resp, 0, out, 0, resp.length);
+        System.arraycopy(status, 0, out, resp.length, status.length);
+        return out;
     }
 
 }

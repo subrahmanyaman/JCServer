@@ -10,10 +10,11 @@ public class config {
     public static final int JCOP_PORT = 8050;
 
     // keymaster
+    public static final String keymasterAid = "A00000006203020C010101";
     public static final byte[] KEYMASTER_PKG_AID = 
             Utils.hexStringToByteArray("A00000006203020C0101");
     public static final byte[] KEYMASTER_AID = 
-            Utils.hexStringToByteArray("A00000006203020C010101");
+            Utils.hexStringToByteArray(keymasterAid);
     public static final byte[] SEPROVIDER_PKG_AID = 
             Utils.hexStringToByteArray("A00000006203020C0102");
     public static final String CAP_SEPRIVIDER = "ExtBinaries/seprovider.cap";
