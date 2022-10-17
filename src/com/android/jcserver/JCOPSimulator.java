@@ -34,6 +34,13 @@ public class JCOPSimulator implements Simulator {
         openCardSim.installApplet(getAbsolutePath(CAP_KEYMASTER), KEYMASTER_AID,
                 KEYMASTER_PKG_AID);
     }
+    
+    private void installWeaver() throws JCOPException {
+    	openCardSim.installApplet(getAbsolutePath(CAP_WEAVER), WEAVER_AID,
+                WEAVER_PKG_AID);
+    	openCardSim.installApplet(getAbsolutePath(CAP_WEAVER_CORE), WEAVER_CORE_AID,
+                WEAVER_CORE_PKG_AID);
+    } 
 
     private void installFira() throws JCOPException {
         openCardSim.installApplet(getAbsolutePath(CAP_BER), null, BER_PKG_AID);
@@ -52,6 +59,8 @@ public class JCOPSimulator implements Simulator {
                 installKeymaster();
             } else if (target.equals("fira")) {
                 installFira();
+            } else if (target.equals("weaver")) {
+            	installWeaver();
             }
         } catch (JCOPException e) {
             openCardSim.close();
