@@ -3,7 +3,6 @@ package com.android.jcserver;
 import javax.smartcardio.CommandAPDU;
 import javax.smartcardio.ResponseAPDU;
 
-// NOTE: for jcop simulator, commented out below line
 import com.android.javacard.keymaster.KMJCardSimApplet;
 
 import com.licel.jcardsim.smartcardio.CardSimulator;
@@ -33,7 +32,6 @@ public class JCardSimulator implements Simulator {
 
     private void installKeymaster() throws JCOPException {
         AID appletAID1 = AIDUtil.create(keymasterAid);
-        // NOTE: for jcop simulator commented out below line
         simulator.installApplet(appletAID1, KMJCardSimApplet.class);
     }
 
