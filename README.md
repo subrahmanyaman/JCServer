@@ -14,8 +14,14 @@ jcarsim respectively inside ExtBinaries/ directory
 ### Program Arguments
 Program takes two arguments 
 - Simulator type either 'jcop' or 'jcardsim'
-- Package to install either 'keymaster' or 'fira'
-Example:
+- Packages to install either single or multiple 
+
+Example to install multiple packages
+<pre>
+jcop
+keymaster,weaver,fira
+</pre>
+Example to install single package
 <pre>
 jcop
 keymaster

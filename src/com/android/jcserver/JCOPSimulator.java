@@ -53,20 +53,29 @@ public class JCOPSimulator implements Simulator {
     }
 
     @Override
-    public void setupSimulator(String target) throws Exception {
-        try {
-            if (target.equals("keymaster")) {
-                installKeymaster();
-            } else if (target.equals("fira")) {
-                installFira();
-            } else if (target.equals("weaver")) {
-            	installWeaver();
-            }
-        } catch (JCOPException e) {
-            openCardSim.close();
-            throw new JCOPException(e.getMessage());
-        }
-    }
+	public void setupSimulator(String[] target) throws Exception {
+		try {
+			for (String name : target) {
+				switch (name) {
+				case "keymaster":
+					installKeymaster();
+					break;
+				case "fira":
+					installFira();
+					break;
+				case "weaver":
+					installWeaver();
+					break;
+				default:
+					// Ignore already handled in main function
+					break;
+				}
+			}
+		} catch (JCOPException e) {
+			openCardSim.close();
+			throw new JCOPException(e.getMessage());
+		}
+	}
 
     private final byte[] intToByteArray(int value) {
         return new byte[] { (byte) (value >>> 8), (byte) value };

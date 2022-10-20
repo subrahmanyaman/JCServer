@@ -39,13 +39,23 @@ public class JCardSimulator implements Simulator {
     }
 
     @Override
-    public void setupSimulator(String target) throws Exception {
-        if (target.equals("keymaster")) {
-            installKeymaster();
-        } else if (target.equals("fira")) {
-            installFira();
-        }
-    }
+	public void setupSimulator(String[] target) throws Exception {
+    	// TODO add Weaver
+		for (String name : target) {
+			switch (name) {
+			case "keymaster":
+				installKeymaster();
+				break;
+			case "fira":
+				installFira();
+				break;
+			default:
+				// Ignore already handled in main function
+				break;
+			}
+		}
+
+	}
 
     private final byte[] intToByteArray(int value) {
         return new byte[] { (byte) (value >>> 8), (byte) value };
