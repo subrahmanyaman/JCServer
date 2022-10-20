@@ -18,7 +18,7 @@ public class OracleSimulator implements Simulator {
         hostApp.powerDown();
     }
 
-    public void setupSimulator(String target) {
+    public void setupSimulator(String[] target) {
         try {
             ArrayList<byte[]> scriptApdus = ScriptParser
                     .getApdusFromScript("res/JavaCardKeymaster.scr");

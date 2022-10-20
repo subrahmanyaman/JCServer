@@ -7,7 +7,7 @@ public interface Simulator {
 
     void disconnectSimulator() throws Exception;
 
-    void setupSimulator(String target) throws Exception;
+    void setupSimulator(String[] target) throws Exception;
 
     byte[] executeApdu(byte[] apdu) throws Exception;
 

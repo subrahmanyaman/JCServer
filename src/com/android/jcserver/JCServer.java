@@ -2,7 +2,9 @@ package com.android.jcserver;
 
 import java.io.*;
 import java.net.*;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import com.sun.javacard.apduio.CadTransportException;
 import javacard.framework.Util;
@@ -19,6 +21,7 @@ public class JCServer {
         String providerName;
         String targetName;
         Simulator simulator;
+        String[] targetNames;
 
         if (args.length < 2) {
             System.out.println("Simulator and Target name are expected as argument.");
@@ -27,12 +30,13 @@ public class JCServer {
             providerName = args[0];
             targetName = args[1];
         }
-
-        if (!(targetName.equals("fira") || targetName.equals("keymaster") ||
-        		targetName.equals("weaver"))) {
-            System.out.println("Target name must be either 'fira' or 'keymaster' or 'Weaver");
-            return;
-        }
+		targetNames = targetName.split(",");
+		for (String name : targetNames) {
+			if (!(name.equals("fira") || name.equals("keymaster") || name.equals("weaver"))) {
+				System.out.println("Target name must be either 'fira' or 'keymaster' or 'Weaver");
+				return;
+			}
+		}
 
         if (JCOP_PROVIDER.equals(providerName)) {
             simulator = new JCOPSimulator();
@@ -45,7 +49,7 @@ public class JCServer {
 
         try (ServerSocket serverSocket = new ServerSocket(PORT)) {
             simulator.initaliseSimulator();
-            simulator.setupSimulator(targetName);
+            simulator.setupSimulator(targetNames);
 
             byte[] outData;
             while (true) {
