@@ -15,6 +15,7 @@ jcarsim respectively inside ExtBinaries/ directory
 Program takes two arguments 
 - Simulator type either 'jcop' or 'jcardsim'
 - Packages to install either single or multiple 
+
 Example to install multiple packages
 <pre>
 jcop
