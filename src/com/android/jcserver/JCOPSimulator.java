@@ -28,17 +28,17 @@ public class JCOPSimulator implements Simulator {
         openCardSim.close();
     }
 
-    private void installKeymaster() throws JCOPException {
-        openCardSim.installApplet(getAbsolutePath(CAP_SEPRIVIDER), null,
+    private void installKeymaster(String capPath) throws JCOPException {
+        openCardSim.installApplet(getAbsolutePath(capPath+"/"+CAP_SEPRIVIDER), null,
                 SEPROVIDER_PKG_AID);
-        openCardSim.installApplet(getAbsolutePath(CAP_KEYMASTER), KEYMASTER_AID,
+        openCardSim.installApplet(getAbsolutePath(capPath+"/"+CAP_KEYMASTER), KEYMASTER_AID,
                 KEYMASTER_PKG_AID);
     }
     
-    private void installWeaver() throws JCOPException {
-    	openCardSim.installApplet(getAbsolutePath(CAP_WEAVER), WEAVER_AID,
+    private void installWeaver(String capPath) throws JCOPException {
+    	openCardSim.installApplet(getAbsolutePath(capPath+"/"+CAP_WEAVER), WEAVER_AID,
                 WEAVER_PKG_AID);
-    	openCardSim.installApplet(getAbsolutePath(CAP_WEAVER_CORE), WEAVER_CORE_AID,
+    	openCardSim.installApplet(getAbsolutePath(capPath+"/"+CAP_WEAVER_CORE), WEAVER_CORE_AID,
                 WEAVER_CORE_PKG_AID);
     } 
 
@@ -53,18 +53,18 @@ public class JCOPSimulator implements Simulator {
     }
 
     @Override
-	public void setupSimulator(String[] target) throws Exception {
+	public void setupSimulator(String[] target, String pathToCapFiles) throws Exception {
 		try {
 			for (String name : target) {
 				switch (name) {
 				case "keymaster":
-					installKeymaster();
+					installKeymaster(pathToCapFiles);
 					break;
 				case "fira":
 					installFira();
 					break;
 				case "weaver":
-					installWeaver();
+					installWeaver(pathToCapFiles);
 					break;
 				default:
 					// Ignore already handled in main function

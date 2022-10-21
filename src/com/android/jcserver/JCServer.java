@@ -22,13 +22,17 @@ public class JCServer {
         String targetName;
         Simulator simulator;
         String[] targetNames;
+        String pathToCapFiles = DEFAULT_CAP_PATH;
 
-        if (args.length < 2) {
+        if (args.length < 2 || args.length > 3) {
             System.out.println("Simulator and Target name are expected as argument.");
             return;
         } else {
             providerName = args[0];
             targetName = args[1];
+            if (args.length == 3) {
+                pathToCapFiles = args[2];
+            }
         }
 		targetNames = targetName.split(",");
 		for (String name : targetNames) {
@@ -49,7 +53,7 @@ public class JCServer {
 
         try (ServerSocket serverSocket = new ServerSocket(PORT)) {
             simulator.initaliseSimulator();
-            simulator.setupSimulator(targetNames);
+            simulator.setupSimulator(targetNames, pathToCapFiles);
 
             byte[] outData;
             while (true) {

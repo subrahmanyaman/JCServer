@@ -25,10 +25,11 @@ public class config {
             Utils.hexStringToByteArray("A000000476575652434F4D4D30");
     public static final byte[] WEAVER_CORE_AID = 
             Utils.hexStringToByteArray("A000000476575652434F524530010101");
-    public static final String CAP_SEPRIVIDER = "ExtBinaries/seprovider.cap";
-    public static final String CAP_KEYMASTER = "ExtBinaries/keymaster.cap";
-    public static final String CAP_WEAVER = "ExtBinaries/weaver.cap";
-    public static final String CAP_WEAVER_CORE = "ExtBinaries/core.cap";
+    public static final String CAP_SEPRIVIDER = "seprovider.cap";
+    public static final String CAP_KEYMASTER = "keymaster.cap";
+    public static final String CAP_WEAVER = "weaver.cap";
+    public static final String CAP_WEAVER_CORE = "core.cap";
+    public static final String DEFAULT_CAP_PATH = "ExtBinaries";
 
     // FiRa
     public static final byte[] BER_PKG_AID = Utils.hexStringToByteArray("a0000008675303");

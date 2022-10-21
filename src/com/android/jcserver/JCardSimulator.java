@@ -39,7 +39,7 @@ public class JCardSimulator implements Simulator {
     }
 
     @Override
-	public void setupSimulator(String[] target) throws Exception {
+	public void setupSimulator(String[] target, String pathToCapFiles) throws Exception {
     	// TODO add Weaver
 		for (String name : target) {
 			switch (name) {
