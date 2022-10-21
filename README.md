@@ -9,12 +9,13 @@ to test with JCOP simulator.
 ### Build
 Import JCServer server application either in Eclipse or IntelliJ. Add the provided jars inside
 lib/ directory and also add precompiled applets .cap and *jar file for jcop and 
-jcarsim respectively inside ExtBinaries/ directory
+jcarsim respectively inside ExtBinaries/ directory. ExtBinaries is the default cap files path. Users may pass the optional external cap file path as an argument to the application.
 
 ### Program Arguments
-Program takes two arguments 
+Program takes two or three arguments
 - Simulator type either 'jcop' or 'jcardsim'
 - Packages to install either single or multiple 
+- Optional cap files path. (If not provided, ExtBinaries becomes the default cap file path)
 
 Example to install multiple packages
 <pre>
@@ -26,3 +27,9 @@ Example to install single package
 jcop
 keymaster
 </pre>
+Example to install multiple packages with custom cap path
+<pre>
+jcop
+keymaster,weaver,fira <cap_files_path>
+</pre>
+
