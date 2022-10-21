@@ -30,6 +30,7 @@ keymaster
 Example to install multiple packages with custom cap path
 <pre>
 jcop
-keymaster,weaver,fira <cap_files_path>
+keymaster,weaver,fira
+<path_to_cap_files>
 </pre>
 
