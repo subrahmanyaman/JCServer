@@ -31,6 +31,6 @@ Example to install multiple packages with custom cap path
 <pre>
 jcop
 keymaster,weaver,fira
-<path_to_cap_files>
+&lt;path_to_cap_files&gt;
 </pre>
 
