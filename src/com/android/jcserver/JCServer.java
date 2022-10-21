@@ -22,7 +22,7 @@ public class JCServer {
         String targetName;
         Simulator simulator;
         String[] targetNames;
-        String pathToCapFiles = null;
+        String pathToCapFiles = DEFAULT_CAP_PATH;
 
         if (args.length < 2 || args.length > 3) {
             System.out.println("Simulator and Target name are expected as argument.");
