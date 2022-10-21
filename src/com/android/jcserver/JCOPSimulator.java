@@ -29,9 +29,6 @@ public class JCOPSimulator implements Simulator {
     }
 
     private void installKeymaster(String capPath) throws JCOPException {
-    	if (capPath == null) {
-    		capPath = DEFAULT_CAP_PATH;
-    	}
         openCardSim.installApplet(getAbsolutePath(capPath+"/"+CAP_SEPRIVIDER), null,
                 SEPROVIDER_PKG_AID);
         openCardSim.installApplet(getAbsolutePath(capPath+"/"+CAP_KEYMASTER), KEYMASTER_AID,
@@ -39,9 +36,6 @@ public class JCOPSimulator implements Simulator {
     }
     
     private void installWeaver(String capPath) throws JCOPException {
-    	if (capPath == null) {
-    		capPath = DEFAULT_CAP_PATH;
-    	}
     	openCardSim.installApplet(getAbsolutePath(capPath+"/"+CAP_WEAVER), WEAVER_AID,
                 WEAVER_PKG_AID);
     	openCardSim.installApplet(getAbsolutePath(capPath+"/"+CAP_WEAVER_CORE), WEAVER_CORE_AID,
